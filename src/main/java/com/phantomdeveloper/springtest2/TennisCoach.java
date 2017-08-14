@@ -5,8 +5,11 @@
  */
 package com.phantomdeveloper.springtest2;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,10 +18,11 @@ import org.springframework.stereotype.Component;
  */
 //@Component("thatSillyCoach")
 @Component
+//@Scope("prototype")
 public class TennisCoach implements Coach{
     
     @Autowired
-    @Qualifier("happyFortuneService")
+    @Qualifier("randomFortuneService")
     private FortuneService fortuneService;
 
 //    @Autowired
@@ -29,7 +33,16 @@ public class TennisCoach implements Coach{
     public TennisCoach() {
         System.out.println("I am in constructor");
     }
+    
+    @PostConstruct
+    public void doStartupStuff(){
+        System.out.println("Start here....");
+    }
 
+    @PreDestroy
+    public void doCleanupStuff(){
+        System.out.println("End here....");
+    }
 //    @Autowired
 //    public void setFortuneService(FortuneService fortuneService) {
 //        System.out.println("i'm in setter method");
